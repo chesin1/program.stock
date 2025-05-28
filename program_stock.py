@@ -237,8 +237,7 @@ def get_korea_macro_df_and_print():
         if idx > 10: break
     return pd.DataFrame(rows, columns=["지표명", "날짜", "값", "단위"])
 
-# ✅ CSV 파일 저장
-filename = "data/stock_price.csv"
+
 
 us_df = get_us_macro_df_and_print()
 kr_df = get_korea_macro_df_and_print()
@@ -251,7 +250,13 @@ kr_df_padded = pad_df(kr_df.copy(), stock_df.columns)
 
 final_df = pd.concat([stock_df, blank, us_title, us_df_padded, blank, kr_title, kr_df_padded], ignore_index=True)
 final_df = final_df.dropna(axis=1, how='all')  # ⚠️ 여기서 'how="any"' 대신 'how="all"'도 고려 가능
-os.makedirs(os.path.dirname(filename), exist_ok=True)
+# ✅ CSV 파일 저장
+filename = "data/stock_price.csv"
+folder = os.path.dirname(filename)
+
+# ✅ 폴더 경로가 존재하고 비어있지 않을 때만 생성 시도
+if folder and not os.path.exists(folder):
+    os.makedirs(folder)
 final_df.to_csv(filename, index=False, encoding='utf-8-sig')
 print(f"\n✅ 최종 CSV 저장 완료 → {filename}")
 
