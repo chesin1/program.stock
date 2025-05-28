@@ -251,7 +251,7 @@ kr_df_padded = pad_df(kr_df.copy(), stock_df.columns)
 
 final_df = pd.concat([stock_df, blank, us_title, us_df_padded, blank, kr_title, kr_df_padded], ignore_index=True)
 final_df = final_df.dropna(axis=1, how='all')  # ⚠️ 여기서 'how="any"' 대신 'how="all"'도 고려 가능
-
+os.makedirs(os.path.dirname(filename), exist_ok=True)
 final_df.to_csv(filename, index=False, encoding='utf-8-sig')
 print(f"\n✅ 최종 CSV 저장 완료 → {filename}")
 
