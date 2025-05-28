@@ -1,8 +1,6 @@
 name: 📈 Weekly Stock Script Run
 
 on:
-  schedule:
-    - cron: '0 21 * * 0'
   workflow_dispatch:
 
 jobs:
@@ -18,12 +16,17 @@ jobs:
       with:
         python-version: '3.10'
 
-    - name: 🔧 Force install dependencies
+    - name: 🔧 Install dependencies (확인용)
       run: |
         python3 -m pip install --upgrade pip
         python3 -m pip install yfinance pandas pandas_datareader beautifulsoup4 lxml
-        echo "✅ 설치된 패키지 목록:"
+        echo "🔍 설치된 패키지 목록:"
         python3 -m pip list
+
+    - name: 🧪 디버깅 - pandas_datareader import 테스트
+      run: |
+        echo "🔁 모듈 import 테스트 시작"
+        python3 -c "from pandas_datareader import data as web; print('✅ pandas_datareader import 성공')"
 
     - name: 🚀 Run Python Script
       run: python3 program_stock.py
