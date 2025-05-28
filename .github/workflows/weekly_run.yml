@@ -2,8 +2,8 @@ name: 📈 Weekly Stock Script Run
 
 on:
   schedule:
-    - cron: '0 21 * * 0'  # 매주 일요일 21:00 UTC = 한국시간 월요일 오전 6시
-  workflow_dispatch:       # 수동 실행도 가능하게
+    - cron: '0 21 * * 0'
+  workflow_dispatch:
 
 jobs:
   run-script:
@@ -21,7 +21,9 @@ jobs:
     - name: 🔧 Install dependencies
       run: |
         pip install --upgrade pip
-        pip install yfinance pandas pandas_datareader beautifulsoup4 lxml
+        pip install -r requirements.txt
+        echo "✅ 설치된 패키지 목록:"
+        pip list
 
     - name: 🚀 Run Python Script
       run: python program.stock.py
