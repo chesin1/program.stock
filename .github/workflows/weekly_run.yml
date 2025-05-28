@@ -1,0 +1,27 @@
+name: 📈 Weekly Stock Script Run
+
+on:
+  schedule:
+    - cron: '0 21 * * 0'  # 매주 일요일 21:00 UTC = 한국시간 월요일 06:00
+  workflow_dispatch:       # 수동 실행 버튼도 제공됨
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 📦 Checkout repository
+      uses: actions/checkout@v3
+
+    - name: 🐍 Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: 🔧 Install dependencies
+      run: |
+        pip install -r requirements.txt || true  # 필요시 requirements.txt 생성
+        pip install yfinance pandas
+
+    - name: 🚀 Run Python Script
+      run: python program.stock.py
