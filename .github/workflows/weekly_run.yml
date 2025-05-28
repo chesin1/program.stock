@@ -26,4 +26,4 @@ jobs:
         python3 -m pip list
 
     - name: 🚀 Run Python Script
-      run: python3 program.stock.py
+      run: python3 program_stock.py
