@@ -30,3 +30,11 @@ jobs:
 
     - name: 🚀 Run Python Script
       run: python3 program_stock.py
+
+    - name: 💾 Commit and push result CSV
+      run: |
+        git config --global user.name 'github-actions'
+        git config --global user.email 'github-actions@github.com'
+        git add data/*.csv
+        git commit -m "📈 자동 업데이트된 주가 CSV" || echo "🟡 변경 사항 없음"
+        git push
