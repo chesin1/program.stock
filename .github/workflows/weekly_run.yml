@@ -3,6 +3,9 @@ name: 📈 Weekly Stock Script Run
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write  # ✅ git push 권한 부여 (필수!)
+
 jobs:
   run-script:
     runs-on: ubuntu-latest
@@ -16,25 +19,19 @@ jobs:
       with:
         python-version: '3.10'
 
-    - name: 🔧 Install dependencies (확인용)
+    - name: 🔧 Install dependencies
       run: |
         python3 -m pip install --upgrade pip
         python3 -m pip install yfinance pandas pandas_datareader beautifulsoup4 lxml
-        echo "🔍 설치된 패키지 목록:"
-        python3 -m pip list
-
-    - name: 🧪 디버깅 - pandas_datareader import 테스트
-      run: |
-        echo "🔁 모듈 import 테스트 시작"
-        python3 -c "from pandas_datareader import data as web; print('✅ pandas_datareader import 성공')"
 
     - name: 🚀 Run Python Script
       run: python3 program_stock.py
 
-    - name: 💾 Commit and push result CSV
+    - name: 💾 Commit and push CSV result
       run: |
         git config --global user.name 'github-actions'
         git config --global user.email 'github-actions@github.com'
         git add data/*.csv
         git commit -m "📈 자동 업데이트된 주가 CSV" || echo "🟡 변경 사항 없음"
         git push
+
