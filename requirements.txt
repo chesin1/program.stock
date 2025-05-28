@@ -1,3 +1,5 @@
 yfinance
 pandas
-numpy
+pandas_datareader
+beautifulsoup4
+lxml
