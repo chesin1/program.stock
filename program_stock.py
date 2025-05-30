@@ -127,7 +127,7 @@ kr_stocks = {    '005930.KS': '삼성전자', '000660.KS': 'SK하이닉스', '37
     '068270.KS': '셀트리온', '033780.KS': '한국가스공사', '000810.KS': '신세계', '007310.KS': '대우건설',
     '086280.KS': '삼성중공업', '003030.KS': '한국항공우주', '000720.KS': 'SK네트웍스',
     '023530.KS': '아모레퍼시픽', '003060.KS': '대우조선해양', '027410.KS': '한화에어로스페이스'}
-us_stocks = {'AAPL': 'Apple', 'MSFT': 'Microsoft', 'GOOG': 'Alphabet', 'AMZN': 'Amazon', 'META': 'Meta Platforms',
+us_stocks = {'AAPL': 'Apple', 'MSFT': 'Microsoft', 'NVDA': 'NVIDIA', 'GOOG': 'Alphabet', 'AMZN': 'Amazon', 'META': 'Meta Platforms',
     'TSLA': 'Tesla', 'BRK-B': 'Berkshire Hathaway', 'V': 'Visa', 'JNJ': 'Johnson & Johnson', 'UNH': 'UnitedHealth',
     'XOM': 'Exxon Mobil', 'JPM': 'JPMorgan Chase', 'PG': 'Procter & Gamble', 'MA': 'Mastercard', 'HD': 'Home Depot',
     'CVX': 'Chevron', 'LLY': 'Eli Lilly', 'PFE': 'Pfizer', 'KO': 'Coca-Cola', 'PEP': 'PepsiCo', 'MRK': 'Merck',
@@ -135,7 +135,7 @@ us_stocks = {'AAPL': 'Apple', 'MSFT': 'Microsoft', 'GOOG': 'Alphabet', 'AMZN': '
     'AVGO': 'Broadcom', 'TMO': 'Thermo Fisher', 'NKE': 'Nike', 'ORCL': 'Oracle', 'TXN': 'Texas Instruments',
     'IBM': 'IBM', 'CRM': 'Salesforce', 'ADBE': 'Adobe', 'COST': 'Costco', 'AMGN': 'Amgen', 'INTU': 'Intuit',
     'NFLX': 'Netflix', 'AMD': 'AMD', 'SBUX': 'Starbucks', 'GILD': 'Gilead Sciences', 'BKNG': 'Booking Holdings',
-    'PYPL': 'PayPal', 'GE': 'General Electric', 'MMM': '3M', 'CVS': 'CVS Health', 'F': 'Ford', 'MRNA': 'Moderna'}
+    'PYPL': 'PayPal', 'GE': 'General Electric', 'MMM': '3M', 'CVS': 'CVS Health', 'F': 'Ford', }
 all_stocks = {**kr_stocks, **us_stocks}
 
 # ✅ 주식 데이터 수집
@@ -183,7 +183,9 @@ for ticker, name in all_stocks.items():
             "52주 변화율": chg52, "52주 해석": interpret_52w_change(chg52),
             "RSI": rsi, "RSI_해석": interpret_rsi(rsi),
             "5일 이평선": interpret_moving_avg(today, ma5),
+            "5일 이평선_해석": interpret_moving_avg(today, ma5).split('(')[-1].replace(')', '') if '(' in interpret_moving_avg(today, ma5) else "-",
             "20일 이평선": interpret_moving_avg(today, ma20),
+            "20일 이평선_해석": interpret_moving_avg(today, ma20).split('(')[-1].replace(')', '') if '(' in interpret_moving_avg(today, ma20) else "-",
             "거래량": volume, "시가총액": mcap
         })
 
